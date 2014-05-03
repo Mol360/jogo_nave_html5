@@ -91,6 +91,8 @@ function Nave(){
     
     this.Pausar = function(){ this.pausado = true; };
     this.Continuar = function(){ this.pausado = false; };
+    
+    this.setaDirecaoNasBalas = function(direcao){this.direcaoBalas = direcao;};
 }
 // Adiciona os métodos do objeto base Desenho ao objeto Nave.
 Nave.prototype = new Desenho();
