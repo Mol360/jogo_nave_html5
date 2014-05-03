@@ -35,6 +35,12 @@ function Jogador(){
             TECLAS_ESTADO.espaco = false;
         }
     };
+    
+    this.tomarDano = function(bala){
+        this.nave.tomarDano(bala);
+        this.pontos -=10;
+    };
+    
     this.estaVivo = function(){return this.nave.estaVivo();};
     
     this.Update = function(){

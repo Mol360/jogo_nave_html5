@@ -54,6 +54,7 @@ function ControladorDoJogo(){
                         this.naves_inimigas[i][ib].Update();
                 
                 this.verificarColisaoJogadorInimigos();
+                this.verificarColisaoInimigosJogador();
                 this.verificarTiroInimigos();
                 this.moverInimigos();
             }
@@ -98,6 +99,22 @@ function ControladorDoJogo(){
                                 }
                                 break
                             }
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    this.verificarColisaoInimigosJogador = function(){
+        if(!this.pausado){
+            for(var i =0; i<this.naves_inimigas.length;i++){
+                for(var ib =0; ib<this.naves_inimigas[i].length;ib++){
+                    for(var ic =0; ic<this.naves_inimigas[i][ib].balas.length;ic++){                        
+                        if(this.Colidiu(this.jogador.nave,this.naves_inimigas[i][ib].balas[ic])){
+                            this.jogador.tomarDano(this.naves_inimigas[i][ib].balas[ic]);
+                            this.naves_inimigas[i][ib].balas.splice(ic,1);
+                            break
                         }
                     }
                 }
