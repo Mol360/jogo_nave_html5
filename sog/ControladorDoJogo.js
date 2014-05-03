@@ -41,6 +41,8 @@ function ControladorDoJogo(){
                 for(var i =0; i<this.naves_inimigas.length;i++)
                     for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                         this.naves_inimigas[i][ib].Update();
+                
+                this.verificarColisaoJogadorInimigos();
             }
         }
     };
@@ -65,6 +67,38 @@ function ControladorDoJogo(){
         for(var i =0; i<this.naves_inimigas.length;i++)
             for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                 this.naves_inimigas[i][ib].Continuar();
+    };
+    
+    this.verificarColisaoJogadorInimigos = function(){
+        if(!this.pausado){
+            for(var i =0; i<this.naves_inimigas.length;i++){
+                for(var ib =0; ib<this.naves_inimigas[i].length;ib++){
+                    if(this.naves_inimigas[i][ib].estaVivo()){
+                        for(var ic=0; ic<this.jogador.nave.balas.length;ic++){
+                            if(this.Colidiu(this.naves_inimigas[i][ib],this.jogador.nave.balas[ic])){
+                                //this.naves_inimigas[i].splice(ib,1);
+                                this.naves_inimigas[i][ib].tomarDano(this.jogador.nave.balas[ic]);
+                                this.jogador.nave.balas.splice(ic,1);
+                                if(!this.naves_inimigas[i][ib].estaVivo()){
+                                    this.qtd_naves_inimigas--;
+                                    this.jogador.pontos +=10;
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    this.Colidiu = function(nave,bala){
+        if(bala.x >= nave.x && bala.x <= (nave.x+nave.imagem.width)){
+            if(bala.y >= nave.y && bala.y <= (nave.y+nave.imagem.height)){
+                return true;
+            }
+        }
+        return false;
     };
     
     this.criarNavesInimigas = function(){
