@@ -7,6 +7,8 @@ function Jogo() {
     this.canvasHeight = 0;
     this.context = "";
     
+    this.nave = new Nave();
+    
     this.Load = function(){
         this.canvas = document.getElementById('canvas');
         // Verifica se o browser suporta canvas.
@@ -14,6 +16,9 @@ function Jogo() {
             this.context = this.canvas.getContext('2d');
             this.canvasHeight = this.canvas.height;
             this.canvasWidth = this.canvas.width;
+            this.nave.Load(this.context,this.canvasWidth,this.canvasHeight);
+            //this.nave.x = this.canvasWidth/2;
+            //this.nave.y = this.canvasHeight/2;
 
             return true;
         } else {
@@ -22,9 +27,11 @@ function Jogo() {
     };
     
     this.Update = function(){
+        this.nave.Update();
     };
     
     this.Draw = function(){
+        this.nave.Draw();
     };
     
     this.Reset = function(){
