@@ -8,7 +8,7 @@ function Jogo() {
     this.context = "";
     this.espaco = "";
     
-    this.jogador = "";
+    this.controladorDoJogo = "";
     
     this.Load = function(){
         this.canvas = document.getElementById('canvas');
@@ -22,8 +22,8 @@ function Jogo() {
             this.espaco = new Espaco();
             this.espaco.Load(this.context,this.canvasWidth,this.canvasHeight);
             
-            this.jogador = new Jogador();
-            this.jogador.Load(this.context,this.canvasWidth,this.canvasHeight);
+            this.controladorDoJogo  = new ControladorDoJogo();
+            this.controladorDoJogo.Load(this.context,this.canvasWidth,this.canvasHeight);
             //this.nave.x = this.canvasWidth/2;
             //this.nave.y = this.canvasHeight/2;
 
@@ -35,12 +35,12 @@ function Jogo() {
     
     this.Update = function(){
         this.espaco.Update();
-        this.jogador.Update();
+        this.controladorDoJogo.Update();
     };
     
     this.Draw = function(){
         this.espaco.Draw();
-        this.jogador.Draw();
+        this.controladorDoJogo.Draw();
     };
     
     this.Reset = function(){
