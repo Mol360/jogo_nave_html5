@@ -13,7 +13,7 @@ TECLAS_ESTADO = {
     direita:false,
     baixo:false
   };
-INIMIGOS_EVENTOS = {mover:false};
+INIMIGOS_EVENTOS = {atirar:false,mover:false};
 document.onkeydown = function(e) {
   var tecla = (e.keyCode) ? e.keyCode : e.charCode;
   if (TECLAS[tecla]) {
@@ -29,4 +29,5 @@ document.onkeyup = function(e) {
   }
 }
 
+setInterval(function(){INIMIGOS_EVENTOS.atirar = true},1000);
 setInterval(function(){INIMIGOS_EVENTOS.mover = true},200);
