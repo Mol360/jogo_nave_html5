@@ -208,6 +208,8 @@ function ControladorDoJogo(){
                 var nave_nova = new Nave();
                 nave_nova.Load(this.context,this.canvasWidth,this.canvasHeight);
                 nave_nova.imagem = imagens[cont];
+                nave_nova.audio_tiro = ARQUIVOS.audio_tiro;
+                nave_nova.audio_explosao = ARQUIVOS.audio_explosao;
                 nave_nova.x = i*60+10;
                 nave_nova.y = 50+(ib*60+10);
                 nave_nova.setaDirecaoNasBalas(1);

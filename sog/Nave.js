@@ -9,6 +9,9 @@ function Nave(){
     this.direcaoBalas = -1;
     this.limiteDeTiros = 5;
     this.dano = 10;
+    this.audio_tiro = "";
+    this.audio_explosao = "";
+    this.mudo = false;
     
     this.Draw = function(){
         if(this.estaVivo()){
@@ -86,17 +89,31 @@ function Nave(){
             bala.setaDirecao(this.direcaoBalas);
             bala.dano = this.dano;
             this.balas.push(bala);
+            
+            if(!this.mudo){
+                this.audio_tiro.pause();
+                this.audio_tiro.currentTime=0;
+                this.audio_tiro.play();
+            }
         }
     };
     
     this.tomarDano = function(bala){
         this.vida = this.vida - bala.dano;
+        if(!this.mudo){
+            this.audio_explosao.pause();
+            this.audio_explosao.currentTime=0;
+            this.audio_explosao.play();
+        }
     };
     
     this.Pausar = function(){ this.pausado = true; };
     this.Continuar = function(){ this.pausado = false; };
     
     this.setaDirecaoNasBalas = function(direcao){this.direcaoBalas = direcao;};
+    
+    this.deixarMudo = function(){this.mudo=true;};
+    this.voltarAudio = function(){this.mudo=false;};
 }
 // Adiciona os métodos do objeto base Desenho ao objeto Nave.
 Nave.prototype = new Desenho();
