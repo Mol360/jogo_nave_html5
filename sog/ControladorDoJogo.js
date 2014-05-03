@@ -13,6 +13,15 @@ function ControladorDoJogo(){
     this.qtd_naves_colunas = 5;
     this.qtd_naves_linhas = 4;
     
+    this.contador_movimentacao_linhas = 0;
+    this.limite_passos_horizontal = 7;
+    this.contador_passos_horizontal = 0;
+    this.limite_passos_vertical = 2;
+    this.contador_passos_vertical = 0;
+    this.mover_vertical = false;
+    this.direcao_vertical = 1;
+    this.direcao_linhas = [];
+    
     this.Load = function(context,cWidth,cHeight){
         this.context = context;
         this.canvasWidth = cWidth;
@@ -43,6 +52,7 @@ function ControladorDoJogo(){
                         this.naves_inimigas[i][ib].Update();
                 
                 this.verificarColisaoJogadorInimigos();
+                this.moverInimigos();
             }
         }
     };
@@ -101,11 +111,50 @@ function ControladorDoJogo(){
         return false;
     };
     
+    
+    this.moverInimigos = function(){
+        if(!this.pausado && INIMIGOS_EVENTOS.mover){
+            for(var i =0; i<this.naves_inimigas.length;i++){
+                if(!this.mover_vertical){
+                    if(this.naves_inimigas[i][this.contador_movimentacao_linhas] !== undefined){
+                       this.naves_inimigas[i][this.contador_movimentacao_linhas].x +=this.direcao_linhas[this.contador_movimentacao_linhas]*this.naves_inimigas[i][this.contador_movimentacao_linhas].imagem.width;
+                    }
+                }else{
+                    for(var ib =0; ib<this.naves_inimigas[i].length;ib++){
+                        if(this.naves_inimigas[i][ib] !== undefined)
+                            this.naves_inimigas[i][ib].y +=this.direcao_vertical*this.naves_inimigas[i][ib].imagem.height;
+                    }
+                    this.direcao_linhas[i] = this.direcao_linhas[i]*-1;
+                }
+            }
+            INIMIGOS_EVENTOS.mover = false;
+            if(!this.mover_vertical){
+                this.contador_movimentacao_linhas++;
+                if(this.contador_movimentacao_linhas>this.qtd_naves_linhas){
+                    this.contador_movimentacao_linhas = 0;
+                    this.contador_passos_horizontal++;
+                    if(this.contador_passos_horizontal>=this.limite_passos_horizontal){
+                        this.contador_passos_horizontal = 0;
+                        this.mover_vertical = true;
+                    }
+                }
+            }else{
+                this.contador_passos_vertical++;
+                if(this.contador_passos_vertical>=this.limite_passos_vertical){
+                    this.direcao_vertical = this.direcao_vertical*-1;
+                    this.contador_passos_vertical = 0;
+                }
+                this.mover_vertical = false;
+            }
+        }
+    };
+    
     this.criarNavesInimigas = function(){
         var imagens = [ARQUIVOS.nave_inimigo1,ARQUIVOS.nave_inimigo2];
         var cont=0;
         
         for(var i=0;i<this.qtd_naves_colunas;i++){
+            this.direcao_linhas.push(1);
             var arr_inimigos_coluna = [];
             if(cont>(imagens.length-1))
                 cont=0;
