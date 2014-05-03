@@ -4,8 +4,6 @@
 function Nave(){
     this.vida = 100;
     this.pausado = true;
-    this.imagem = new Image();
-    this.imagem.src = "imgs/nave_player.png";
     
     this.Draw = function(){
         if(this.estaVivo()){

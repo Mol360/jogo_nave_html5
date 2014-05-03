@@ -16,7 +16,10 @@ function Jogo() {
             this.context = this.canvas.getContext('2d');
             this.canvasHeight = this.canvas.height;
             this.canvasWidth = this.canvas.width;
+            
             this.nave.Load(this.context,this.canvasWidth,this.canvasHeight);
+            this.nave.imagem = new Image();
+            this.nave.imagem.src = "imgs/nave_player.png";
             //this.nave.x = this.canvasWidth/2;
             //this.nave.y = this.canvasHeight/2;
 
