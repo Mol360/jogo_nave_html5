@@ -22,6 +22,8 @@ function ControladorDoJogo(){
     this.direcao_vertical = 1;
     this.direcao_linhas = [];
     
+    this.precisaoTiroInimigo = 60;
+    
     this.Load = function(context,cWidth,cHeight){
         this.context = context;
         this.canvasWidth = cWidth;
@@ -52,6 +54,7 @@ function ControladorDoJogo(){
                         this.naves_inimigas[i][ib].Update();
                 
                 this.verificarColisaoJogadorInimigos();
+                this.verificarTiroInimigos();
                 this.moverInimigos();
             }
         }
@@ -147,6 +150,32 @@ function ControladorDoJogo(){
                 this.mover_vertical = false;
             }
         }
+    };
+    
+    this.verificarTiroInimigos = function(){
+        if(!this.pausado && INIMIGOS_EVENTOS.atirar){
+            var atirou = false;
+            for(var i =0; i<this.naves_inimigas.length;i++){
+                if(this.naves_inimigas[i].length>0){
+                    for(var ib = this.naves_inimigas[i].length-1; ib>=0;ib--){
+                        if(this.naves_inimigas[i][ib]!==undefined && this.naves_inimigas[i][ib].estaVivo()){
+                            if(this.estaNaMira(this.jogador.nave,this.naves_inimigas[i][ib])){
+                                this.naves_inimigas[i][ib].Atirar();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            INIMIGOS_EVENTOS.atirar = false;
+        }
+    };
+    
+    this.estaNaMira = function(nave,naveInimiga){
+        if(nave.x-(nave.width/2) > naveInimiga.x-this.precisaoTiroInimigo && nave.x-(nave.width/2) < (naveInimiga.x+naveInimiga.width)+this.precisaoTiroInimigo){
+            return true;
+        }
+        return false;
     };
     
     this.criarNavesInimigas = function(){
