@@ -6,6 +6,7 @@ function Jogo() {
     this.canvasWidth = 0;
     this.canvasHeight = 0;
     this.context = "";
+    this.espaco = "";
     
     this.nave = new Nave();
     
@@ -17,9 +18,12 @@ function Jogo() {
             this.canvasHeight = this.canvas.height;
             this.canvasWidth = this.canvas.width;
             
+            // Inicializa o objeto Espaco.
+            this.espaco = new Espaco();
+            this.espaco.Load(this.context,this.canvasWidth,this.canvasHeight);
+            
             this.nave.Load(this.context,this.canvasWidth,this.canvasHeight);
-            this.nave.imagem = new Image();
-            this.nave.imagem.src = "imgs/nave_player.png";
+            this.nave.imagem = ARQUIVOS.nave_jogador;
             //this.nave.x = this.canvasWidth/2;
             //this.nave.y = this.canvasHeight/2;
 
@@ -30,10 +34,12 @@ function Jogo() {
     };
     
     this.Update = function(){
+        this.espaco.Update();
         this.nave.Update();
     };
     
     this.Draw = function(){
+        this.espaco.Draw();
         this.nave.Draw();
     };
     
