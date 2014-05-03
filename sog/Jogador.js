@@ -17,6 +17,8 @@ function Jogador(){
         this.canvasHeight = cHeight;
         
         this.nave.imagem = ARQUIVOS.nave_jogador;
+        this.nave.audio_tiro = ARQUIVOS.audio_tiro;
+        this.nave.audio_explosao = ARQUIVOS.audio_explosao;
         this.nave.Load(context,this.canvasWidth,this.canvasHeight);
         this.nave.dano = this.dano;
     };
