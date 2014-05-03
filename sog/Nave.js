@@ -89,6 +89,10 @@ function Nave(){
         }
     };
     
+    this.tomarDano = function(bala){
+        this.vida = this.vida - bala.dano;
+    };
+    
     this.Pausar = function(){ this.pausado = true; };
     this.Continuar = function(){ this.pausado = false; };
     

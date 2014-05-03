@@ -2,6 +2,7 @@
 function Jogador(){
     this.nave = new Nave();
     this.pontos = 0;
+    this.dano = 100;
     this.ULTIMA_TECLA = {
                 espaco:false,
                 esquerda:false,
@@ -17,6 +18,7 @@ function Jogador(){
         
         this.nave.imagem = ARQUIVOS.nave_jogador;
         this.nave.Load(context,this.canvasWidth,this.canvasHeight);
+        this.nave.dano = this.dano;
     };
     
     this.pegaEntrada = function(){
