@@ -6,6 +6,7 @@ function ControladorDoJogo(){
     this.qtd_naves_inimigas = 0;
     this.pausado = true;
     this.jogador = "";
+    this.hud = "";
     this.context = "";
     this.canvasWidth = "";
     this.canvasHeight = "";
@@ -34,6 +35,10 @@ function ControladorDoJogo(){
         this.jogador.nave.x = (this.canvasWidth/2)-(this.jogador.nave.imagem.width/2);
         this.jogador.nave.y = this.canvasHeight-(this.jogador.nave.imagem.height);
         
+        this.hud = new Hud();
+        this.hud.Load(this.context,this.canvasWidth,this.canvasHeight);
+        this.hud.vida_total = this.jogador.nave.vida;
+        
         this.criarNavesInimigas();
         
         this.pausado = false;
@@ -43,8 +48,10 @@ function ControladorDoJogo(){
         for(var i =0; i<this.naves_inimigas.length;i++)
             for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                 this.naves_inimigas[i][ib].Draw();
+        this.hud.Draw();
     };
     this.Update = function(){
+        this.hud.Update(this.jogador.pontos,this.jogador.nave.vida);
         if(!this.pausado){
             if(this.jogador.nave.estaVivo()){
                 this.jogador.Update();
