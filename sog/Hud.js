@@ -26,6 +26,17 @@ function Hud() {
     
     this.Draw = function(){
         this.pegaBarraVida();
+        this.pegaPontos();
+    };
+    
+    this.pegaPontos = function(){
+        this.context.font = 'italic 15pt Times Roman';
+        this.context.fillStyle = '#76CCFA';
+        this.context.lineWidth = 2;
+        this.context.strokeStyle = 'black';
+
+        this.context.strokeText('Pontos : '+this.pontos, this.canvasWidth-130, 30);
+        this.context.fillText('Pontos : '+this.pontos, this.canvasWidth-130, 30);
     };
     
     this.pegaBarraVida = function(){
