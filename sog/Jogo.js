@@ -29,6 +29,7 @@ function Jogo() {
             //this.nave.y = this.canvasHeight/2;
 
             this.Pausar();
+            this.controladorDoJogo.hud.comecar();
             return true;
         } else {
             return false;

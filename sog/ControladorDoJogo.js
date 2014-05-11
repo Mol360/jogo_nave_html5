@@ -65,6 +65,10 @@ function ControladorDoJogo(){
                 this.verificarTiroInimigos();
                 this.moverInimigos();
             }
+            if(!this.jogador.nave.estaVivo())
+                this.hud.fimDeJogo();
+            else if(this.todosMortos())
+                this.hud.venceuJogo();
         }
     };
     
@@ -78,6 +82,7 @@ function ControladorDoJogo(){
     this.Pausar = function(){
         this.pausado = true;
         this.jogador.nave.Pausar();
+        this.hud.Pausar();
         for(var i =0; i<this.naves_inimigas.length;i++)
             for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                 this.naves_inimigas[i][ib].Pausar();
@@ -85,6 +90,7 @@ function ControladorDoJogo(){
     this.Continuar = function(){
         this.pausado = false;
         this.jogador.nave.Continuar();
+        this.hud.Continuar();
         for(var i =0; i<this.naves_inimigas.length;i++)
             for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                 this.naves_inimigas[i][ib].Continuar();
