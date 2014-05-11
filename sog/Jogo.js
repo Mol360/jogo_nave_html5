@@ -7,6 +7,7 @@ function Jogo() {
     this.canvasHeight = 0;
     this.context = "";
     this.espaco = "";
+    this.pausado = true;
     
     this.controladorDoJogo = "";
     
@@ -27,6 +28,7 @@ function Jogo() {
             //this.nave.x = this.canvasWidth/2;
             //this.nave.y = this.canvasHeight/2;
 
+            this.Pausar();
             return true;
         } else {
             return false;
@@ -45,6 +47,17 @@ function Jogo() {
     
     this.Reset = function(){
         
+    };
+    
+    this.Pausar = function(){
+        if(!this.controladorDoJogo.todosMortos()){
+            this.pausado = true;
+            this.controladorDoJogo.Pausar();
+        }
+    };
+    this.Continuar = function(){
+        this.pausado = false;
+        this.controladorDoJogo.Continuar();
     };
     
     // Start the animation loop
