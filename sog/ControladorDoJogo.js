@@ -64,6 +64,7 @@ function ControladorDoJogo(){
                 this.verificarColisaoInimigosJogador();
                 this.verificarTiroInimigos();
                 this.moverInimigos();
+                this.verificaPosicaoJogador();
             }
             if(!this.jogador.nave.estaVivo())
                 this.hud.fimDeJogo();
@@ -94,6 +95,23 @@ function ControladorDoJogo(){
         for(var i =0; i<this.naves_inimigas.length;i++)
             for(var ib =0; ib<this.naves_inimigas[i].length;ib++)
                 this.naves_inimigas[i][ib].Continuar();
+    };
+    
+    this.verificaPosicaoJogador = function(){
+        if(!this.pausado && this.jogador.estaVivo()){
+            var maior_indice = [0,0];
+            for(var i =0; i<this.naves_inimigas.length;i++){
+                for(var ib =this.naves_inimigas[i].length-1; ib>=0;ib--){
+                    if(this.naves_inimigas[i][ib] !== undefined && this.naves_inimigas[i][ib].estaVivo()){
+                        if(ib>maior_indice[1])
+                            maior_indice = [i,ib]
+                        break;
+                    }
+                }
+            }
+            if(this.naves_inimigas[maior_indice[0]][maior_indice[1]].estaVivo() && this.jogador.nave.y<=(this.naves_inimigas[maior_indice[0]][maior_indice[1]].y+this.naves_inimigas[maior_indice[0]][maior_indice[1]].imagem.height))
+                this.jogador.nave.y = this.naves_inimigas[maior_indice[0]][maior_indice[1]].y+this.jogador.nave.imagem.height;
+        }
     };
     
     this.verificarColisaoJogadorInimigos = function(){
